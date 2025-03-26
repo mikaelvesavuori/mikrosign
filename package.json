@@ -1,0 +1,60 @@
+{
+  "name": "mikrosign",
+  "description": "Lightweight HMAC request signing with zero dependencies.",
+  "version": "1.0.0",
+  "author": "Mikael Vesavuori",
+  "license": "MIT",
+  "keywords": [
+    "hmac",
+    "signing",
+    "security"
+  ],
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikaelvesavuori/mikrosign"
+  },
+  "bugs": {
+    "url": "https://github.com/mikaelvesavuori/mikrosign/issues"
+  },
+  "homepage": "https://github.com/mikaelvesavuori/mikrosign",
+  "exports": {
+    ".": {
+      "require": "./lib/index.js",
+      "import": "./lib/index.mjs"
+    }
+  },
+  "files": [
+    "/lib",
+    "!/lib/**/*.map",
+    "!/tests"
+  ],
+  "bin": {
+    "mikrosign": "lib/index.js"
+  },
+  "scripts": {
+    "test": "npm run test:licenses && npm run test:types && npm run lint && npm run test:unit",
+    "test:types": "npx type-coverage --at-least 85 --strict --ignore-files \"tests/**/*.ts\" --ignore-files \"*.ts\" --ignore-files \"src/application/errors/*.ts\" --ignore-files \"testdata/*.ts\"",
+    "test:licenses": "npx license-compliance --direct --allow 'MIT;ISC;0BSD;BSD-2-Clause;BSD-3-Clause;Apache-2.0;Unlicense;CC0-1.0'",
+    "test:unit": "npx vitest run --coverage",
+    "test:watch": "npx vitest --watch",
+    "build": "npm run clean && tsup src --format esm,cjs --dts && mv dist lib",
+    "clean": "rm -rf lib && rm -rf dist",
+    "lint": "npx @biomejs/biome check --write ./src ./tests",
+    "package": "npm pack",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1",
+    "@types/node": "latest",
+    "@vitest/coverage-v8": "2",
+    "husky": "9",
+    "license-compliance": "latest",
+    "tsup": "8",
+    "tsx": "latest",
+    "type-coverage": "2",
+    "typescript": "5",
+    "vitest": "2"
+  }
+}
